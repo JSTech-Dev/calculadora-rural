@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Universal JSTech | Premium</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- VARIÁVEIS DE TEMA (CSS Custom Properties) --- */
+        :root {
+            /* Tema Claro (Padrão) */
+            --accent-color: #0d9488; /* Verde-azulado sofisticado */
+            --accent-hover: #0f766e;
+            --bg-body: #f0f2f5; /* Cinza muito suave */
+            --bg-card: #ffffff;
+            --text-primary: #1f2937; /* Quase preto */
+            --text-secondary: #6b7280; /* Cinza médio */
+            --border-color: #e5e7eb;
+            --input-bg: #f9fafb;
+            --shadow-premium: 0 20px 40px -15px rgba(0,0,0,0.1);
+            --header-bg: #ffffff;
+        }
+
+        body.dark-mode {
+            /* Tema Escuro */
+            --accent-color: #2dd4bf; /* Verde-azulado mais brilhante */
+            --accent-hover: #5eead4;
+            --bg-body: #0f172a; /* Azul marinho profundo */
+            --bg-card: #1e293b; /* Azul ardósia escuro */
+            --text-primary: #f3f4f6; /* Quase branco */
+            --text-secondary: #9ca3af; /* Cinza claro */
+            --border-color: #374151;
+            --input-bg: #334155;
+            --shadow-premium: 0 20px 40px -15px rgba(0,0,0,0.5);
+            --header-bg: #1e293b;
+        }
+
+        /* --- ESTILOS GERAIS --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: var(--header-bg);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s ease;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+        }
+        .brand h1 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+        .brand span { font-size: 0.8rem; color: var(--text-secondary); }
+        .brand strong { color: var(--accent-color); }
+
+        /* Botão Dark Mode */
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .theme-toggle:hover { background-color: var(--input-bg); border-color: var(--accent-color); }
+
+        /* --- CONTAINER PRINCIPAL --- */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .premium-card {
+            background-color: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow-premium);
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* --- FORMULÁRIO E GRID --- */
+        .grid-layout {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .input-group { display: flex; flex-direction: column; }
+        
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        input, select {
+            background-color: var(--input-bg);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 1rem;
+            /* Adicionamos padding extra na direita para o texto não ficar embaixo da seta */
+            padding-right: 3rem; 
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            transition: all 0.2s;
+            width: 100%;
+            box-sizing: border-box; /* Garante que o padding não estoure a largura */
+            
+            /* Remove a seta padrão feia de todos os navegadores */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        /* Ícone customizado para o Select */
+        .select-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        /* A Seta Personalizada */
+        .select-wrapper::after {
+            content: 'expand_more';
+            font-family: 'Material Icons Round';
+            position: absolute;
+            right: 12px; /* AQUI: Trouxemos mais perto da borda (antes era 1rem/16px) */
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-color); /* Mudado para a cor de destaque para ficar mais visível */
+            pointer-events: none;
+            font-size: 1.5rem; /* Um pouco maior para facilitar a leitura */
+            background-color: var(--input-bg); /* Garante que o fundo da seta seja igual ao do input */
+        }
+
+        /* Efeito de foco mais evidente */
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
+        }
+
+        input[type=number] { font-weight: 700; }
+
+        /* Botão de Inverter */
+        .swap-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: -0.5rem 0; /* Aproximar os campos */
+        }
+        .btn-swap {
+            background-color: var(--bg-body);
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            z-index: 2; /* Ficar sobre as bordas se necessário */
+        }
+        .btn-swap:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: rotate(180deg);
+        }
+
+        /* --- ÁREA DE RESULTADO --- */
+        .result-container {
+            margin-top: 2.5rem;
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 2px dashed var(--border-color);
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .result-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            line-height: 1.1;
+            display: block;
+        }
+
+        .result-unit-name {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .steps-box {
+            margin-top: 1.5rem;
+            background-color: var(--input-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: left;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: none; /* Escondido até calcular */
+        }
+        .steps-box.visible { display: block; }
+
+        /* Notas e Alertas */
+        .warning-note {
+            font-size: 0.75rem;
+            color: #f59e0b; /* Âmbar */
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        .warning-note .material-icons-round { font-size: 1rem; margin-right: 4px; }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="brand">
+        <h1>Calculadora Agrária Universal</h1>
+        <span>Desenvolvido por <strong>JSTech</strong></span>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar Tema">
+        <span class="material-icons-round" id="themeIcon">dark_mode</span>
+    </button>
+</header>
+
+<main>
+    <div class="premium-card">
+        <div class="grid-layout">
+            <div class="input-group">
+                <label for="amount">Quantidade Inicial</label>
+                <input type="number" id="amount" value="1" min="0" step="any" placeholder="Ex: 10.5" oninput="calculate()">
+            </div>
+
+            <div class="input-group">
+                <label for="fromUnit">Converter de</label>
+                <div class="select-wrapper">
+                    <select id="fromUnit" onchange="calculate()"></select>
+                </div>
+                <div id="fromNote" class="warning-note"><span class="material-icons-round">warning_amber</span><span class="txt"></span></div>
+            </div>
+
+            <div class="swap-container">
+                <button class="btn-swap" onclick="swapUnits()" title="Inverter Origem e Destino">
+                    <span class="material-icons-round">swap_vert</span>
+                </button>
+            </div>
+
+            <div class="input-group">
+                <label for="toUnit">Para a unidade</label>
+                <div class="select-wrapper">
+                    <select id="toUnit" onchange="calculate()"></select>
+                </div>
+                 <div id="toNote" class="warning-note"><span class="material-icons-round">warning_amber</span><span class="txt"></span></div>
+            </div>
+        </div>
+
+        <div class="result-container">
+            <div class="result-label">Resultado da conversão</div>
+            <span id="finalResult" class="result-value">0,00</span>
+            <span id="finalUnitName" class="result-unit-name">Hectares</span>
+            
+            <div id="steps" class="steps-box"></div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    &copy; 2026 JSTech Soluções. Ferramenta de uso referencial.
+</footer>
+
+<script>
+    // ==========================================
+    // 1. LÓGICA DE TEMA (DARK MODE)
+    // ==========================================
+    function toggleTheme() {
+        const body = document.body;
+        const icon = document.getElementById('themeIcon');
+        body.classList.toggle('dark-mode');
+        
+        // Salvar preferência e mudar ícone
+        if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+            icon.innerText = 'light_mode';
+        } else {
+            localStorage.setItem('theme', 'light');
+            icon.innerText = 'dark_mode';
+        }
+    }
+
+    // Carregar preferência salva ao iniciar
+    function loadTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeIcon').innerText = 'light_mode';
+        }
+    }
+
+    // ==========================================
+    // 2. DADOS E CALCULADORA
+    // ==========================================
+    const units = {
+        internacional: {
+            label: "📏 Padrão Internacional",
+            items: {
+                m2: { name: "Metro Quadrado (m²)", factor: 1 },
+                are: { name: "Are", factor: 100 },
+                ha: { name: "Hectare", factor: 10000 },
+                km2: { name: "Quilômetro Quadrado (km²)", factor: 1000000 },
+                acre_int: { name: "Acre (Internacional)", factor: 4046.8564224 }
+            }
+        },
+        brasil: {
+            label: "🇧🇷 Brasil (Regionais)",
+            items: {
+                alq_paulista: { name: "Alqueire Paulista", factor: 24200 },
+                alq_mineiro: { name: "Alqueire Mineiro/Goiano", factor: 48400 },
+                alq_baiano: { name: "Alqueire Baiano", factor: 96800 },
+                tarefa_ne: { name: "Tarefa (Nordeste/Comum)", factor: 3025, note: "Variável! Confirme se é 3025m² na região." },
+                tarefa_ba: { name: "Tarefa (Bahia)", factor: 4356 },
+                braca_quadrada: { name: "Braça Quadrada", factor: 4.84 },
+                lote_padrao: { name: "Lote Urbano (Padrão 12x30)", factor: 360, note: "Estimado. Lotes variam por loteamento." },
+                data_mg: { name: "Data (MG)", factor: 605 } // Derivada histórica
+            }
+        },
+        eua_uk: {
+            label: "🇺🇸/🇬🇧 EUA & Império Britânico",
+            items: {
+                sq_ft: { name: "Square Foot (pé²)", factor: 0.092903 },
+                sq_yd: { name: "Square Yard (jarda²)", factor: 0.836127 },
+                acre_us: { name: "Acre (Survey US)", factor: 4046.873 },
+                rood: { name: "Rood", factor: 1011.714 },
+                perch: { name: "Perch / Rod", factor: 25.2929 },
+                sq_mile: { name: "Square Mile", factor: 2589988.11 }
+            }
+        },
+        europa: {
+            label: "🇪🇺 Europa (Histórico/Regional)",
+            items: {
+                arpent: { name: "Arpent (França)", factor: 3419 },
+                morgen: { name: "Morgen (Alemanha)", factor: 2500 },
+                fanega: { name: "Fanega (Espanha)", factor: 6400 },
+                tahulla: { name: "Tahúlla", factor: 1118 },
+                ferrado: { name: "Ferrado", factor: 546 },
+                geira: { name: "Geira (Portugal)", factor: 5000 },
+                alq_portugues: { name: "Alqueire Português", factor: 5800 }
+            }
+        },
+        africa: {
+            label: "🌍 África",
+            items: {
+                feddan: { name: "Feddan (Egito/Sudão)", factor: 4200 },
+                tarefa_africana: { name: "Tarefa (Colonial)", factor: 1000 }
+            }
+        },
+        asia: {
+            label: "🌏 Ásia",
+            items: {
+                bigha: { name: "Bigha (Índia - Média)", factor: 2500, note: "Muito variável por estado indiano." },
+                katha: { name: "Katha", factor: 338 },
+                guntha: { name: "Guntha", factor: 101.17 },
+                cent: { name: "Cent", factor: 40.4686 },
+                mu: { name: "Mu (China)", factor: 666.6667 },
+                qing: { name: "Qing (China)", factor: 66666.67 },
+                tsubo: { name: "Tsubo (Japão)", factor: 3.306 },
+                rai: { name: "Rai (Tailândia)", factor: 1600 }
+            }
+        },
+        oriente_medio: {
+            label: "🌴 Oriente Médio",
+            items: {
+                dunam: { name: "Dunam / Donum", factor: 1000 },
+                jerib: { name: "Jerib (Afeganistão)", factor: 2000 }
+            }
+        },
+        historico: {
+            label: "🏛️ Históricas (Antiguidade)",
+            items: {
+                iugerum: { name: "Iugerum (Roma)", factor: 2500 },
+                arura: { name: "Arura (Egito Antigo)", factor: 2700 },
+                plethron: { name: "Plethron (Grécia)", factor: 1000 },
+                hide: { name: "Hide (Inglaterra Medieval)", factor: 485000 },
+                virgate: { name: "Virgate", factor: 120000 }
+            }
+        }
+    };
+
+    function populateSelects() {
+        const selects = ['fromUnit', 'toUnit'];
+        selects.forEach(id => {
+            const select = document.getElementById(id);
+            select.innerHTML = '';
+            for (const [groupKey, groupData] of Object.entries(units)) {
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = groupData.label;
+                for (const [unitKey, unitData] of Object.entries(groupData.items)) {
+                    const option = document.createElement('option');
+                    option.value = unitData.factor;
+                    option.text = unitData.name;
+                    option.dataset.name = unitData.name;
+                    option.dataset.note = unitData.note || "";
+                    optgroup.appendChild(option);
+                }
+                select.appendChild(optgroup);
+            }
+        });
+        // Padrões iniciais
+        document.getElementById('fromUnit').value = units.brasil.items.alq_paulista.factor;
+        document.getElementById('toUnit').value = units.internacional.items.ha.factor;
+    }
+
+    function swapUnits() {
+        const from = document.getElementById('fromUnit');
+        const to = document.getElementById('toUnit');
+        const tempVal = from.value;
+        from.value = to.value;
+        to.value = tempVal;
+        calculate();
+    }
+
+    function formatNumber(num) {
+        if (num === 0) return "0,00";
+        // Lógica para mostrar mais casas decimais se o número for muito pequeno
+        let decimals = 2;
+        if (num < 0.01 && num > 0) decimals = 6;
+        else if (num < 1 && num > 0) decimals = 4;
+        
+        return num.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: decimals });
+    }
+
+    function calculate() {
+        const amountInput = document.getElementById('amount');
+        let amount = parseFloat(amountInput.value);
+
+        const fromSelect = document.getElementById('fromUnit');
+        const toSelect = document.getElementById('toUnit');
+        const fromFactor = parseFloat(fromSelect.value);
+        const toFactor = parseFloat(toSelect.value);
+        
+        const fromOption = fromSelect.options[fromSelect.selectedIndex];
+        const toOption = toSelect.options[toSelect.selectedIndex];
+        const fromName = fromOption.dataset.name;
+        const toName = toOption.dataset.name;
+
+        // Gerenciar Alertas
+        const fromNoteEl = document.getElementById('fromNote');
+        const toNoteEl = document.getElementById('toNote');
+        
+        if(fromOption.dataset.note) { fromNoteEl.style.display = 'flex'; fromNoteEl.querySelector('.txt').innerText = fromOption.dataset.note; } 
+        else { fromNoteEl.style.display = 'none'; }
+
+        if(toOption.dataset.note) { toNoteEl.style.display = 'flex'; toNoteEl.querySelector('.txt').innerText = toOption.dataset.note; } 
+        else { toNoteEl.style.display = 'none'; }
+
+        // Validação básica
+        if (isNaN(amount) || amount < 0) {
+            amount = 0; // Trata entrada inválida como zero visualmente
+            // Opcional: adicionar classe de erro ao input
+        }
+
+        // CÁLCULO CENTRAL (Pivô m²)
+        const valInM2 = amount * fromFactor;
+        const finalVal = valInM2 / toFactor;
+
+        // Atualizar UI
+        document.getElementById('finalResult').innerText = formatNumber(finalVal);
+        document.getElementById('finalUnitName').innerText = toName;
+
+        // Passo a passo
+        const stepsBox = document.getElementById('steps');
+        stepsBox.classList.add('visible');
+        stepsBox.innerHTML = `
+            <strong>Detalhamento do cálculo (Base m²):</strong><br>
+            1. Converter para metros quadrados: <br>
+            &nbsp;&nbsp;&nbsp; ${formatNumber(amount)} × ${formatNumber(fromFactor)} = ${formatNumber(valInM2)} m²<br>
+            2. Converter para a unidade final: <br>
+            &nbsp;&nbsp;&nbsp; ${formatNumber(valInM2)} ÷ ${formatNumber(toFactor)} = <strong>${formatNumber(finalVal)}</strong>
+        `;
+    }
+
+    // Inicialização
+    window.onload = () => {
+        loadTheme(); // Carrega o tema salvo
+        populateSelects(); // Preenche os selects
+        calculate(); // Calcula o estado inicial
+    };
+
+</script>
+
+</body>
+</html>
