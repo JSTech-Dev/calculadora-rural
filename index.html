@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Universal JSTech | Premium</title>
+    <title>Calculadora Rural Online | Converter Alqueire, Hectare e Medidas de Terra</title>
+    <meta name="description" content="Calculadora rural online para converter alqueire em hectare, tarefa, metro quadrado e outras medidas de terra usadas no Brasil e no mundo. Gratuita e fácil de usar.">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     
@@ -218,13 +219,32 @@
             text-align: center; padding: 1.5rem;
             font-size: 0.8rem; color: var(--text-secondary);
         }
+
+        .content-column{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
+  width:100%;
+  max-width:600px;
+}
+
+.seo-card{
+  width:100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: var(--shadow-premium);
+}
+
     </style>
 </head>
 <body>
 
 <header>
         <div class="brand">
-            <h1>Calculadora Agrária Universal</h1>
+            <h1>Calculadora Rural de Medidas de Terra</h1>
             <span>Desenvolvido por <strong>JSTech</strong></span>
         </div>
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar Tema">
@@ -299,6 +319,32 @@
                 <div id="steps" class="steps-box"></div>
             </div>
         </div>
+
+                <section style="
+            margin-top:40px;
+            max-width:600px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: var(--shadow-premium);
+        ">
+            <h2>Calculadora Rural de Conversão de Medidas de Terra</h2>
+
+            <p>
+                Esta calculadora rural permite converter alqueire para hectare,
+                tarefa, metro quadrado, acre e diversas medidas agrícolas regionais
+                usadas no Brasil e em outros países.
+            </p>
+
+            <h3>Conversão de Alqueire para Hectare</h3>
+            <p>
+                O alqueire varia conforme a região. O alqueire paulista equivale a
+                2,42 hectares, enquanto o alqueire mineiro ou goiano equivale a
+                4,84 hectares.
+            </p>
+        </section>
+
 
         <aside class="ad-sidebar">
             <div class="ad-slot-vertical">
@@ -493,4 +539,5 @@
 </script>
 
 </body>
+
 </html>
