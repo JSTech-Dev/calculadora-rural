@@ -271,7 +271,7 @@
         4,84 hectares.
       </p>
     </section>
-  </div>
+  
 
         <aside class="ad-sidebar">
             <div class="ad-slot-vertical">
@@ -378,7 +378,7 @@
                 for (const [k, g] of Object.entries(units)) {
                     const grp = document.createElement('optgroup'); grp.label = g.label;
                     for (const [uk, u] of Object.entries(g.items)) {
-                        const o = document.createElement('option'); o.value = u.f; o.text = u.name;
+                        const o = document.createElement('option'); o.value = u.factor; o.text = u.name;
                         grp.appendChild(o);
                     }
                     s.appendChild(grp);
@@ -413,6 +413,7 @@
     </script>
 </body>
 </html>
+
 
 
 
