@@ -258,9 +258,91 @@
     <footer>&copy; 2026 JSTech Soluções.</footer>
 
     <script>
-        const units = {
-            br: { label: "🇧🇷 Brasil", items: { alq_p: { name: "Alqueire Paulista", f: 24200 }, alq_m: { name: "Alqueire Mineiro", f: 48400 }, ha: { name: "Hectare", f: 10000 }, m2: { name: "Metro Quadrado", f: 1 } } }
-        };
+         const units = {
+        internacional: {
+            label: "📏 Padrão Internacional",
+            items: {
+                m2: { name: "Metro Quadrado (m²)", factor: 1 },
+                are: { name: "Are", factor: 100 },
+                ha: { name: "Hectare", factor: 10000 },
+                km2: { name: "Quilômetro Quadrado (km²)", factor: 1000000 },
+                acre_int: { name: "Acre (Internacional)", factor: 4046.8564224 }
+            }
+        },
+        brasil: {
+            label: "🇧🇷 Brasil (Regionais)",
+            items: {
+                alq_paulista: { name: "Alqueire Paulista", factor: 24200 },
+                alq_mineiro: { name: "Alqueire Mineiro/Goiano", factor: 48400 },
+                alq_baiano: { name: "Alqueire Baiano", factor: 96800 },
+                tarefa_ne: { name: "Tarefa (Nordeste/Comum)", factor: 3025, note: "Variável! Confirme se é 3025m² na região." },
+                tarefa_ba: { name: "Tarefa (Bahia)", factor: 4356 },
+                braca_quadrada: { name: "Braça Quadrada", factor: 4.84 },
+                lote_padrao: { name: "Lote Urbano (Padrão 12x30)", factor: 360, note: "Estimado. Lotes variam por loteamento." },
+                data_mg: { name: "Data (MG)", factor: 605 } // Derivada histórica
+            }
+        },
+        eua_uk: {
+            label: "🇺🇸/🇬🇧 EUA & Império Britânico",
+            items: {
+                sq_ft: { name: "Square Foot (pé²)", factor: 0.092903 },
+                sq_yd: { name: "Square Yard (jarda²)", factor: 0.836127 },
+                acre_us: { name: "Acre (Survey US)", factor: 4046.873 },
+                rood: { name: "Rood", factor: 1011.714 },
+                perch: { name: "Perch / Rod", factor: 25.2929 },
+                sq_mile: { name: "Square Mile", factor: 2589988.11 }
+            }
+        },
+        europa: {
+            label: "🇪🇺 Europa (Histórico/Regional)",
+            items: {
+                arpent: { name: "Arpent (França)", factor: 3419 },
+                morgen: { name: "Morgen (Alemanha)", factor: 2500 },
+                fanega: { name: "Fanega (Espanha)", factor: 6400 },
+                tahulla: { name: "Tahúlla", factor: 1118 },
+                ferrado: { name: "Ferrado", factor: 546 },
+                geira: { name: "Geira (Portugal)", factor: 5000 },
+                alq_portugues: { name: "Alqueire Português", factor: 5800 }
+            }
+        },
+        africa: {
+            label: "🌍 África",
+            items: {
+                feddan: { name: "Feddan (Egito/Sudão)", factor: 4200 },
+                tarefa_africana: { name: "Tarefa (Colonial)", factor: 1000 }
+            }
+        },
+        asia: {
+            label: "🌏 Ásia",
+            items: {
+                bigha: { name: "Bigha (Índia - Média)", factor: 2500, note: "Muito variável por estado indiano." },
+                katha: { name: "Katha", factor: 338 },
+                guntha: { name: "Guntha", factor: 101.17 },
+                cent: { name: "Cent", factor: 40.4686 },
+                mu: { name: "Mu (China)", factor: 666.6667 },
+                qing: { name: "Qing (China)", factor: 66666.67 },
+                tsubo: { name: "Tsubo (Japão)", factor: 3.306 },
+                rai: { name: "Rai (Tailândia)", factor: 1600 }
+            }
+        },
+        oriente_medio: {
+            label: "🌴 Oriente Médio",
+            items: {
+                dunam: { name: "Dunam / Donum", factor: 1000 },
+                jerib: { name: "Jerib (Afeganistão)", factor: 2000 }
+            }
+        },
+        historico: {
+            label: "🏛️ Históricas (Antiguidade)",
+            items: {
+                iugerum: { name: "Iugerum (Roma)", factor: 2500 },
+                arura: { name: "Arura (Egito Antigo)", factor: 2700 },
+                plethron: { name: "Plethron (Grécia)", factor: 1000 },
+                hide: { name: "Hide (Inglaterra Medieval)", factor: 485000 },
+                virgate: { name: "Virgate", factor: 120000 }
+            }
+        }
+    };
 
         function populate() {
             const selects = [document.getElementById('fromUnit'), document.getElementById('toUnit')];
@@ -303,3 +385,4 @@
     </script>
 </body>
 </html>
+
