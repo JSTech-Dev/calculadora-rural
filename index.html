@@ -216,28 +216,44 @@
         </aside>
 
         <div class="content-column">
-            <div class="premium-card">
-                <div class="grid-layout">
-                    <div class="input-group">
-                        <label for="amount">Quantidade</label>
-                        <input type="number" id="amount" value="1" step="any" oninput="calculate()">
-                    </div>
-                    <div class="input-group">
-                        <label>De</label>
-                        <div class="select-wrapper"><select id="fromUnit" onchange="calculate()"></select></div>
-                    </div>
-                    <button class="btn-swap" onclick="swapUnits()"><span class="material-icons-round">swap_vert</span></button>
-                    <div class="input-group">
-                        <label>Para</label>
-                        <div class="select-wrapper"><select id="toUnit" onchange="calculate()"></select></div>
-                    </div>
+            
+            <div class="grid-layout">
+                <div class="input-group">
+                    <label for="amount">Quantidade Inicial</label>
+                    <input type="number" id="amount" value="1" min="0" step="any" placeholder="Ex: 10.5" oninput="calculate()">
                 </div>
-                <div class="result-container">
-                    <span id="finalResult" class="result-value">0,00</span>
-                    <span id="finalUnitName" class="result-unit-name">Hectares</span>
-                    <div id="steps" class="steps-box"></div>
+
+                <div class="input-group">
+                    <label for="fromUnit">Converter de</label>
+                    <div class="select-wrapper">
+                        <select id="fromUnit" onchange="calculate()"></select>
+                    </div>
+                    <div id="fromNote" class="warning-note"><span class="material-icons-round">warning_amber</span><span class="txt"></span></div>
+                </div>
+
+                <div class="swap-container">
+                    <button class="btn-swap" onclick="swapUnits()" title="Inverter Origem e Destino">
+                        <span class="material-icons-round">swap_vert</span>
+                    </button>
+                </div>
+
+                <div class="input-group">
+                    <label for="toUnit">Para a unidade</label>
+                    <div class="select-wrapper">
+                        <select id="toUnit" onchange="calculate()"></select>
+                    </div>
+                    <div id="toNote" class="warning-note"><span class="material-icons-round">warning_amber</span><span class="txt"></span></div>
                 </div>
             </div>
+
+            <div class="result-container">
+                <div class="result-label">Resultado da conversão</div>
+                <span id="finalResult" class="result-value">0,00</span>
+                <span id="finalUnitName" class="result-unit-name">Hectares</span>
+                
+                <div id="steps" class="steps-box"></div>
+            </div>
+        </div>
 
        
     <section class="seo-card">
@@ -397,5 +413,6 @@
     </script>
 </body>
 </html>
+
 
 
