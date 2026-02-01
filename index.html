@@ -36,7 +36,6 @@
             --header-bg: #1e293b;
         }
 
-        /* --- ESTILOS GERAIS --- */
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-body);
@@ -48,7 +47,6 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* --- HEADER --- */
         header {
             background-color: var(--header-bg);
             padding: 1rem 1.5rem;
@@ -56,13 +54,12 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            transition: background-color 0.3s ease;
             position: relative;
             z-index: 10;
         }
 
         .brand { display: flex; flex-direction: column; }
-        .brand h1 { margin: 0; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.03em; }
+        .brand h1 { margin: 0; font-size: 1.25rem; font-weight: 700; }
         .brand span { font-size: 0.8rem; color: var(--text-secondary); }
         .brand strong { color: var(--accent-color); }
 
@@ -73,20 +70,24 @@
             padding: 8px;
             border-radius: 50%;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center;
         }
-        .theme-toggle:hover { background-color: var(--input-bg); border-color: var(--accent-color); }
 
-        /* --- LAYOUT PRINCIPAL --- */
+        /* Banner Horizontal */
+        .banner-horizontal {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+            background-color: transparent;
+        }
+
         main {
             flex: 1;
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            padding: 2rem 1rem;
+            padding: 1rem;
             gap: 20px;
         }
 
@@ -99,7 +100,7 @@
             max-width: 600px;
         }
 
-        .premium-card {
+        .premium-card, .seo-card {
             background-color: var(--bg-card);
             padding: 2.5rem;
             border-radius: 24px;
@@ -107,17 +108,13 @@
             width: 100%;
             box-sizing: border-box;
             border: 1px solid var(--border-color);
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-            z-index: 5;
         }
 
-        /* --- ANÚNCIOS LATERAIS --- */
         .ad-sidebar {
             width: 160px;
             min-height: 300px;
             display: flex;
             flex-direction: column;
-            align-items: center;
             position: sticky;
             top: 20px;
         }
@@ -127,9 +124,6 @@
             height: 300px;
             background-color: rgba(0,0,0,0.02);
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: hidden;
         }
 
@@ -137,19 +131,10 @@
             .ad-sidebar { display: none; }
         }
 
-        /* --- FORMULÁRIO --- */
         .grid-layout { display: grid; gap: 1.5rem; }
         .input-group { display: flex; flex-direction: column; }
+        label { font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem; text-transform: uppercase; }
         
-        label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
         input, select {
             background-color: var(--input-bg);
             border: 2px solid var(--border-color);
@@ -157,58 +142,40 @@
             padding: 1rem;
             border-radius: 12px;
             font-size: 1.1rem;
-            font-family: inherit;
-            transition: all 0.2s;
             width: 100%;
             box-sizing: border-box;
             appearance: none;
         }
 
-        .select-wrapper { position: relative; display: flex; align-items: center; }
+        .select-wrapper { position: relative; }
         .select-wrapper::after {
             content: 'expand_more';
             font-family: 'Material Icons Round';
             position: absolute;
             right: 12px; top: 50%; transform: translateY(-50%);
-            color: var(--accent-color); pointer-events: none; font-size: 1.5rem;
-        }
-
-        input:focus, select:focus {
-            outline: none; border-color: var(--accent-color);
-            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
+            color: var(--accent-color); pointer-events: none;
         }
 
         .btn-swap {
             background-color: var(--bg-body); border: 2px solid var(--border-color);
             color: var(--text-secondary); width: 45px; height: 45px;
-            border-radius: 50%; cursor: pointer;
+            border-radius: 50%; cursor: pointer; margin: 0 auto;
             display: flex; align-items: center; justify-content: center;
-            margin: 0 auto; transition: all 0.2s;
+            transition: 0.2s;
         }
-        .btn-swap:hover { color: var(--accent-color); border-color: var(--accent-color); transform: rotate(180deg); }
+        .btn-swap:hover { color: var(--accent-color); transform: rotate(180deg); }
 
         .result-container {
-            margin-top: 2.5rem; text-align: center;
+            margin-top: 2rem; text-align: center;
             padding-top: 2rem; border-top: 2px dashed var(--border-color);
         }
         .result-value { font-size: 3rem; font-weight: 800; color: var(--accent-color); display: block; }
-        
+
         .steps-box {
             margin-top: 1.5rem; background-color: var(--input-bg);
-            padding: 1rem; border-radius: 12px; text-align: left;
-            font-size: 0.85rem; color: var(--text-secondary); display: none;
+            padding: 1rem; border-radius: 12px; font-size: 0.85rem; display: none;
         }
         .steps-box.visible { display: block; }
-
-        .seo-card {
-            width: 100%;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 2rem;
-            box-sizing: border-box;
-            box-shadow: var(--shadow-premium);
-        }
 
         footer { text-align: center; padding: 1.5rem; font-size: 0.8rem; color: var(--text-secondary); }
     </style>
@@ -217,21 +184,34 @@
 
     <header>
         <div class="brand">
-            <h1>Calculadora Rural de Medidas de Terra</h1>
+            <h1>Calculadora Rural</h1>
             <span>Desenvolvido por <strong>JSTech</strong></span>
         </div>
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar Tema">
+        <button class="theme-toggle" onclick="toggleTheme()">
             <span class="material-icons-round" id="themeIcon">dark_mode</span>
         </button>
     </header>
 
+    <div class="banner-horizontal">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'c4610708d1a1c2a5116993c3e68efb88',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="https://www.highperformanceformat.com/c4610708d1a1c2a5116993c3e68efb88/invoke.js"></script>
+    </div>
+
     <main>
         <aside class="ad-sidebar">
             <div class="ad-slot-vertical">
-                <script>
+                <script type="text/javascript">
                     atOptions = { 'key' : 'fc10de9fed3464a40e587ec5deae37d7', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
                 </script>
-                <script src="https://www.highperformanceformat.com/fc10de9fed3464a40e587ec5deae37d7/invoke.js"></script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/fc10de9fed3464a40e587ec5deae37d7/invoke.js"></script>
             </div>
         </aside>
 
@@ -239,37 +219,20 @@
             <div class="premium-card">
                 <div class="grid-layout">
                     <div class="input-group">
-                        <label for="amount">Quantidade Inicial</label>
-                        <input type="number" id="amount" value="1" min="0" step="any" oninput="calculate()">
+                        <label for="amount">Quantidade</label>
+                        <input type="number" id="amount" value="1" step="any" oninput="calculate()">
                     </div>
-
                     <div class="input-group">
-                        <label for="fromUnit">Converter de</label>
-                        <div class="select-wrapper">
-                            <select id="fromUnit" onchange="calculate()"></select>
-                        </div>
-                        <div id="fromNote" class="warning-note" style="display:none; color: #f59e0b; font-size: 0.75rem; margin-top:5px;">
-                            <span class="material-icons-round" style="font-size:12px">warning_amber</span> <span class="txt"></span>
-                        </div>
+                        <label>De</label>
+                        <div class="select-wrapper"><select id="fromUnit" onchange="calculate()"></select></div>
                     </div>
-
-                    <button class="btn-swap" onclick="swapUnits()" title="Inverter">
-                        <span class="material-icons-round">swap_vert</span>
-                    </button>
-
+                    <button class="btn-swap" onclick="swapUnits()"><span class="material-icons-round">swap_vert</span></button>
                     <div class="input-group">
-                        <label for="toUnit">Para a unidade</label>
-                        <div class="select-wrapper">
-                            <select id="toUnit" onchange="calculate()"></select>
-                        </div>
-                        <div id="toNote" class="warning-note" style="display:none; color: #f59e0b; font-size: 0.75rem; margin-top:5px;">
-                            <span class="material-icons-round" style="font-size:12px">warning_amber</span> <span class="txt"></span>
-                        </div>
+                        <label>Para</label>
+                        <div class="select-wrapper"><select id="toUnit" onchange="calculate()"></select></div>
                     </div>
                 </div>
-
                 <div class="result-container">
-                    <div class="result-label">Resultado da conversão</div>
                     <span id="finalResult" class="result-value">0,00</span>
                     <span id="finalUnitName" class="result-unit-name">Hectares</span>
                     <div id="steps" class="steps-box"></div>
@@ -277,19 +240,17 @@
             </div>
 
             <section class="seo-card">
-                <h2>Calculadora Rural de Conversão de Medidas de Terra</h2>
-                <p>Esta calculadora rural da <strong>JSTech</strong> permite converter alqueire para hectare, tarefa, metro quadrado e outras medidas.</p>
-                <h3>Conversão de Alqueire para Hectare</h3>
-                <p>O alqueire paulista equivale a 2,42 hectares, enquanto o mineiro equivale a 4,84 hectares.</p>
+                <h2>Sobre a Conversão</h2>
+                <p>Calculadora oficial <strong>JSTech</strong>. Converta alqueires (paulista, mineiro, baiano) para hectares e m² com precisão.</p>
             </section>
         </div>
 
         <aside class="ad-sidebar">
             <div class="ad-slot-vertical">
-                <script>
+                <script type="text/javascript">
                     atOptions = { 'key' : 'fc10de9fed3464a40e587ec5deae37d7', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
                 </script>
-                <script src="https://www.highperformanceformat.com/fc10de9fed3464a40e587ec5deae37d7/invoke.js"></script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/fc10de9fed3464a40e587ec5deae37d7/invoke.js"></script>
             </div>
         </aside>
     </main>
@@ -298,24 +259,19 @@
 
     <script>
         const units = {
-            internacional: { label: "📏 Padrão Internacional", items: { m2: { name: "Metro Quadrado (m²)", factor: 1 }, ha: { name: "Hectare", factor: 10000 }, km2: { name: "Quilômetro Quadrado (km²)", factor: 1000000 }, acre_int: { name: "Acre (Internacional)", factor: 4046.85 } } },
-            brasil: { label: "🇧🇷 Brasil", items: { alq_paulista: { name: "Alqueire Paulista", factor: 24200 }, alq_mineiro: { name: "Alqueire Mineiro", factor: 48400 }, tarefa_ne: { name: "Tarefa (Nordeste)", factor: 3025, note: "Confirme se é 3025m² na sua região." } } }
+            br: { label: "🇧🇷 Brasil", items: { alq_p: { name: "Alqueire Paulista", f: 24200 }, alq_m: { name: "Alqueire Mineiro", f: 48400 }, ha: { name: "Hectare", f: 10000 }, m2: { name: "Metro Quadrado", f: 1 } } }
         };
 
-        function populateSelects() {
-            const selects = ['fromUnit', 'toUnit'];
-            selects.forEach(id => {
-                const select = document.getElementById(id);
-                for (const [gk, g] of Object.entries(units)) {
-                    const group = document.createElement('optgroup');
-                    group.label = g.label;
+        function populate() {
+            const selects = [document.getElementById('fromUnit'), document.getElementById('toUnit')];
+            selects.forEach(s => {
+                for (const [k, g] of Object.entries(units)) {
+                    const grp = document.createElement('optgroup'); grp.label = g.label;
                     for (const [uk, u] of Object.entries(g.items)) {
-                        const opt = document.createElement('option');
-                        opt.value = u.factor; opt.text = u.name;
-                        opt.dataset.name = u.name; opt.dataset.note = u.note || "";
-                        group.appendChild(opt);
+                        const o = document.createElement('option'); o.value = u.f; o.text = u.name;
+                        grp.appendChild(o);
                     }
-                    select.appendChild(group);
+                    s.appendChild(grp);
                 }
             });
             document.getElementById('fromUnit').value = 24200;
@@ -323,19 +279,19 @@
         }
 
         function calculate() {
-            const amount = parseFloat(document.getElementById('amount').value) || 0;
-            const fromF = parseFloat(document.getElementById('fromUnit').value);
-            const toF = parseFloat(document.getElementById('toUnit').value);
-            const res = (amount * fromF) / toF;
+            const a = parseFloat(document.getElementById('amount').value) || 0;
+            const f = parseFloat(document.getElementById('fromUnit').value);
+            const t = parseFloat(document.getElementById('toUnit').value);
+            const res = (a * f) / t;
             document.getElementById('finalResult').innerText = res.toLocaleString('pt-BR', {maximumFractionDigits: 4});
-            document.getElementById('steps').innerHTML = `<strong>Cálculo:</strong> ${amount} × ${fromF}m² / ${toF}m² = ${res.toFixed(4)}`;
-            document.getElementById('steps').classList.add('visible');
+            const st = document.getElementById('steps');
+            st.style.display = 'block';
+            st.innerHTML = `<strong>Cálculo:</strong> (${a} * ${f}) / ${t} = ${res.toFixed(4)}`;
         }
 
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            document.getElementById('themeIcon').innerText = isDark ? 'light_mode' : 'dark_mode';
+            document.getElementById('themeIcon').innerText = document.body.classList.contains('dark-mode') ? 'light_mode' : 'dark_mode';
         }
 
         function swapUnits() {
@@ -343,7 +299,7 @@
             const v = f.value; f.value = t.value; t.value = v; calculate();
         }
 
-        window.onload = () => { populateSelects(); calculate(); };
+        window.onload = () => { populate(); calculate(); };
     </script>
 </body>
 </html>
