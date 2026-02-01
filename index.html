@@ -184,7 +184,7 @@
 
     <header>
         <div class="brand">
-            <h1>Calculadora Rural</h1>
+            <h1>Calculadora Rural de Medidas de Terra</h1>
             <span>Desenvolvido por <strong>JSTech</strong></span>
         </div>
         <button class="theme-toggle" onclick="toggleTheme()">
@@ -217,63 +217,62 @@
 
         <div class="content-column">
             
-            <div class="grid-layout">
-                <div class="input-group">
-                    <label for="amount">Quantidade Inicial</label>
-                    <input type="number" id="amount" value="1" min="0" step="any" placeholder="Ex: 10.5" oninput="calculate()">
-                </div>
-
-                <div class="input-group">
-                    <label for="fromUnit">Converter de</label>
-                    <div class="select-wrapper">
-                        <select id="fromUnit" onchange="calculate()"></select>
+            <div class="premium-card">
+                <div class="grid-layout">
+                    <div class="input-group">
+                        <label for="amount">Quantidade Inicial</label>
+                        <input type="number" id="amount" value="1" min="0" step="any" placeholder="Ex: 10.5" oninput="calculate()">
                     </div>
-                    <div id="fromNote" class="warning-note"><span class="material-icons-round">warning_amber</span><span class="txt"></span></div>
-                </div>
 
-                <div class="swap-container">
-                    <button class="btn-swap" onclick="swapUnits()" title="Inverter Origem e Destino">
-                        <span class="material-icons-round">swap_vert</span>
-                    </button>
-                </div>
-
-                <div class="input-group">
-                    <label for="toUnit">Para a unidade</label>
-                    <div class="select-wrapper">
-                        <select id="toUnit" onchange="calculate()"></select>
+                    <div class="input-group">
+                        <label for="fromUnit">Converter de</label>
+                        <div class="select-wrapper">
+                            <select id="fromUnit" onchange="calculate()"></select>
+                        </div>
+                        <div id="fromNote" class="warning-note"><span class="material-icons-round">warning_amber</span><span class="txt"></span></div>
                     </div>
-                    <div id="toNote" class="warning-note"><span class="material-icons-round">warning_amber</span><span class="txt"></span></div>
+
+                    <div class="swap-container">
+                        <button class="btn-swap" onclick="swapUnits()" title="Inverter Origem e Destino">
+                            <span class="material-icons-round">swap_vert</span>
+                        </button>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="toUnit">Para a unidade</label>
+                        <div class="select-wrapper">
+                            <select id="toUnit" onchange="calculate()"></select>
+                        </div>
+                        <div id="toNote" class="warning-note"><span class="material-icons-round">warning_amber</span><span class="txt"></span></div>
+                    </div>
+                </div>
+
+                <div class="result-container">
+                    <div class="result-label">Resultado da conversão</div>
+                    <span id="finalResult" class="result-value">0,00</span>
+                    <span id="finalUnitName" class="result-unit-name">Hectares</span>
+                    
+                    <div id="steps" class="steps-box"></div>
                 </div>
             </div>
 
-            <div class="result-container">
-                <div class="result-label">Resultado da conversão</div>
-                <span id="finalResult" class="result-value">0,00</span>
-                <span id="finalUnitName" class="result-unit-name">Hectares</span>
-                
-                <div id="steps" class="steps-box"></div>
-            </div>
-        </div>
+            <section class="seo-card">
+                <h2>Calculadora Rural de Conversão de Medidas de Terra</h2>
+                <p>
+                    Esta calculadora rural permite converter alqueire para hectare,
+                    tarefa, metro quadrado, acre e diversas medidas agrícolas regionais
+                    usadas no Brasil e em outros países.
+                </p>
 
-       
-    <section class="seo-card">
-      <h2>Calculadora Rural de Conversão de Medidas de Terra</h2>
-      <p>
-        Esta calculadora rural permite converter alqueire para hectare,
-        tarefa, metro quadrado, acre e diversas medidas agrícolas regionais
-        usadas no Brasil e em outros países.
-      </p>
+                <h3>Conversão de Alqueire para Hectare</h3>
+                <p>
+                    O alqueire varia conforme a região. O alqueire paulista equivale a
+                    2,42 hectares, enquanto o alqueire mineiro ou goiano equivale a
+                    4,84 hectares.
+                </p>
+            </section>
 
-      <h3>Conversão de Alqueire para Hectare</h3>
-      <p>
-        O alqueire varia conforme a região. O alqueire paulista equivale a
-        2,42 hectares, enquanto o alqueire mineiro ou goiano equivale a
-        4,84 hectares.
-      </p>
-    </section>
-  
-
-        <aside class="ad-sidebar">
+        </div> <aside class="ad-sidebar">
             <div class="ad-slot-vertical">
                 <script type="text/javascript">
                     atOptions = { 'key' : 'fc10de9fed3464a40e587ec5deae37d7', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
@@ -413,6 +412,7 @@
     </script>
 </body>
 </html>
+
 
 
 
