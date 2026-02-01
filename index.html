@@ -90,13 +90,22 @@
             gap: 20px;
         }
 
+        .content-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+
         .premium-card {
             background-color: var(--bg-card);
             padding: 2.5rem;
             border-radius: 24px;
             box-shadow: var(--shadow-premium);
             width: 100%;
-            max-width: 600px;
+            box-sizing: border-box;
             border: 1px solid var(--border-color);
             transition: background-color 0.3s ease, border-color 0.3s ease;
             z-index: 5;
@@ -105,7 +114,7 @@
         /* --- ANÚNCIOS LATERAIS --- */
         .ad-sidebar {
             width: 160px;
-            min-height: 300px; /* Ajustado para o tamanho do seu anúncio */
+            min-height: 300px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -115,17 +124,15 @@
 
         .ad-slot-vertical {
             width: 160px;
-            height: 300px; /* Altura fixa para o anúncio 160x300 */
+            height: 300px;
             background-color: rgba(0,0,0,0.02);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            /* Borda removida para o anúncio parecer nativo, adicione se preferir */
         }
 
-        /* Esconde laterais em celular/tablet */
         @media (max-width: 1000px) {
             .ad-sidebar { display: none; }
         }
@@ -148,17 +155,13 @@
             border: 2px solid var(--border-color);
             color: var(--text-primary);
             padding: 1rem;
-            padding-right: 3rem; 
             border-radius: 12px;
             font-size: 1.1rem;
             font-family: inherit;
             transition: all 0.2s;
             width: 100%;
             box-sizing: border-box;
-            -webkit-appearance: none;
-            -moz-appearance: none;
             appearance: none;
-            cursor: pointer;
         }
 
         .select-wrapper { position: relative; display: flex; align-items: center; }
@@ -168,40 +171,28 @@
             position: absolute;
             right: 12px; top: 50%; transform: translateY(-50%);
             color: var(--accent-color); pointer-events: none; font-size: 1.5rem;
-            background-color: var(--input-bg);
         }
 
         input:focus, select:focus {
             outline: none; border-color: var(--accent-color);
             box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
         }
-        input[type=number] { font-weight: 700; }
 
-        .swap-container { display: flex; justify-content: center; align-items: center; margin: -0.5rem 0; }
         .btn-swap {
             background-color: var(--bg-body); border: 2px solid var(--border-color);
             color: var(--text-secondary); width: 45px; height: 45px;
             border-radius: 50%; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s; z-index: 2;
+            margin: 0 auto; transition: all 0.2s;
         }
-        .btn-swap:hover {
-            color: var(--accent-color); border-color: var(--accent-color);
-            transform: rotate(180deg);
-        }
+        .btn-swap:hover { color: var(--accent-color); border-color: var(--accent-color); transform: rotate(180deg); }
 
-        /* --- RESULTADO --- */
         .result-container {
             margin-top: 2.5rem; text-align: center;
             padding-top: 2rem; border-top: 2px dashed var(--border-color);
         }
-        .result-label { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
-        .result-value {
-            font-size: 3rem; font-weight: 800; color: var(--accent-color);
-            line-height: 1.1; display: block;
-        }
-        .result-unit-name { font-size: 1.2rem; font-weight: 500; color: var(--text-primary); }
-
+        .result-value { font-size: 3rem; font-weight: 800; color: var(--accent-color); display: block; }
+        
         .steps-box {
             margin-top: 1.5rem; background-color: var(--input-bg);
             padding: 1rem; border-radius: 12px; text-align: left;
@@ -209,40 +200,22 @@
         }
         .steps-box.visible { display: block; }
 
-        .warning-note {
-            font-size: 0.75rem; color: #f59e0b; display: flex;
-            align-items: center; margin-top: 0.5rem; display: none;
+        .seo-card {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2rem;
+            box-sizing: border-box;
+            box-shadow: var(--shadow-premium);
         }
-        .warning-note .material-icons-round { font-size: 1rem; margin-right: 4px; }
 
-        footer {
-            text-align: center; padding: 1.5rem;
-            font-size: 0.8rem; color: var(--text-secondary);
-        }
-
-        .content-column{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:20px;
-  width:100%;
-  max-width:600px;
-}
-
-.seo-card{
-  width:100%;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 24px;
-  padding: 2rem;
-  box-shadow: var(--shadow-premium);
-}
-
+        footer { text-align: center; padding: 1.5rem; font-size: 0.8rem; color: var(--text-secondary); }
     </style>
 </head>
 <body>
 
-<header>
+    <header>
         <div class="brand">
             <h1>Calculadora Rural de Medidas de Terra</h1>
             <span>Desenvolvido por <strong>JSTech</strong></span>
@@ -252,292 +225,125 @@
         </button>
     </header>
 
-    <div class="banner-horizontal">
-        <script>
-            atOptions = {
-                'key' : 'c4610708d1a1c2a5116993c3e68efb88',
-                'format' : 'iframe',
-                'height' : 90,
-                'width' : 728,
-                'params' : {}
-            };
-        </script>
-        <script src="https://www.highperformanceformat.com/c4610708d1a1c2a5116993c3e68efb88/invoke.js"></script>
-    </div>
-
     <main>
         <aside class="ad-sidebar">
             <div class="ad-slot-vertical">
                 <script>
-                    atOptions = {
-                        'key' : 'fc10de9fed3464a40e587ec5deae37d7',
-                        'format' : 'iframe',
-                        'height' : 300,
-                        'width' : 160,
-                        'params' : {}
-                    };
+                    atOptions = { 'key' : 'fc10de9fed3464a40e587ec5deae37d7', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
                 </script>
                 <script src="https://www.highperformanceformat.com/fc10de9fed3464a40e587ec5deae37d7/invoke.js"></script>
             </div>
         </aside>
 
-        <div class="premium-card">
-            <div class="grid-layout">
-                <div class="input-group">
-                    <label for="amount">Quantidade Inicial</label>
-                    <input type="number" id="amount" value="1" min="0" step="any" placeholder="Ex: 10.5" oninput="calculate()">
-                </div>
-
-                <div class="input-group">
-                    <label for="fromUnit">Converter de</label>
-                    <div class="select-wrapper">
-                        <select id="fromUnit" onchange="calculate()"></select>
+        <div class="content-column">
+            <div class="premium-card">
+                <div class="grid-layout">
+                    <div class="input-group">
+                        <label for="amount">Quantidade Inicial</label>
+                        <input type="number" id="amount" value="1" min="0" step="any" oninput="calculate()">
                     </div>
-                    <div id="fromNote" class="warning-note"><span class="material-icons-round">warning_amber</span><span class="txt"></span></div>
-                </div>
 
-                <div class="swap-container">
-                    <button class="btn-swap" onclick="swapUnits()" title="Inverter Origem e Destino">
+                    <div class="input-group">
+                        <label for="fromUnit">Converter de</label>
+                        <div class="select-wrapper">
+                            <select id="fromUnit" onchange="calculate()"></select>
+                        </div>
+                        <div id="fromNote" class="warning-note" style="display:none; color: #f59e0b; font-size: 0.75rem; margin-top:5px;">
+                            <span class="material-icons-round" style="font-size:12px">warning_amber</span> <span class="txt"></span>
+                        </div>
+                    </div>
+
+                    <button class="btn-swap" onclick="swapUnits()" title="Inverter">
                         <span class="material-icons-round">swap_vert</span>
                     </button>
-                </div>
 
-                <div class="input-group">
-                    <label for="toUnit">Para a unidade</label>
-                    <div class="select-wrapper">
-                        <select id="toUnit" onchange="calculate()"></select>
+                    <div class="input-group">
+                        <label for="toUnit">Para a unidade</label>
+                        <div class="select-wrapper">
+                            <select id="toUnit" onchange="calculate()"></select>
+                        </div>
+                        <div id="toNote" class="warning-note" style="display:none; color: #f59e0b; font-size: 0.75rem; margin-top:5px;">
+                            <span class="material-icons-round" style="font-size:12px">warning_amber</span> <span class="txt"></span>
+                        </div>
                     </div>
-                    <div id="toNote" class="warning-note"><span class="material-icons-round">warning_amber</span><span class="txt"></span></div>
+                </div>
+
+                <div class="result-container">
+                    <div class="result-label">Resultado da conversão</div>
+                    <span id="finalResult" class="result-value">0,00</span>
+                    <span id="finalUnitName" class="result-unit-name">Hectares</span>
+                    <div id="steps" class="steps-box"></div>
                 </div>
             </div>
 
-            <div class="result-container">
-                <div class="result-label">Resultado da conversão</div>
-                <span id="finalResult" class="result-value">0,00</span>
-                <span id="finalUnitName" class="result-unit-name">Hectares</span>
-                
-                <div id="steps" class="steps-box"></div>
-            </div>
+            <section class="seo-card">
+                <h2>Calculadora Rural de Conversão de Medidas de Terra</h2>
+                <p>Esta calculadora rural da <strong>JSTech</strong> permite converter alqueire para hectare, tarefa, metro quadrado e outras medidas.</p>
+                <h3>Conversão de Alqueire para Hectare</h3>
+                <p>O alqueire paulista equivale a 2,42 hectares, enquanto o mineiro equivale a 4,84 hectares.</p>
+            </section>
         </div>
-
-                <section style="
-            margin-top:40px;
-            max-width:600px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 2rem;
-            box-shadow: var(--shadow-premium);
-        ">
-            <h2>Calculadora Rural de Conversão de Medidas de Terra</h2>
-
-            <p>
-                Esta calculadora rural permite converter alqueire para hectare,
-                tarefa, metro quadrado, acre e diversas medidas agrícolas regionais
-                usadas no Brasil e em outros países.
-            </p>
-
-            <h3>Conversão de Alqueire para Hectare</h3>
-            <p>
-                O alqueire varia conforme a região. O alqueire paulista equivale a
-                2,42 hectares, enquanto o alqueire mineiro ou goiano equivale a
-                4,84 hectares.
-            </p>
-        </section>
-
 
         <aside class="ad-sidebar">
             <div class="ad-slot-vertical">
                 <script>
-                    atOptions = {
-                        'key' : 'fc10de9fed3464a40e587ec5deae37d7',
-                        'format' : 'iframe',
-                        'height' : 300,
-                        'width' : 160,
-                        'params' : {}
-                    };
+                    atOptions = { 'key' : 'fc10de9fed3464a40e587ec5deae37d7', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
                 </script>
                 <script src="https://www.highperformanceformat.com/fc10de9fed3464a40e587ec5deae37d7/invoke.js"></script>
             </div>
         </aside>
     </main>
 
-<footer>
-    &copy; 2026 JSTech Soluções.
-</footer>
+    <footer>&copy; 2026 JSTech Soluções.</footer>
 
-<script>
-    // --- LÓGICA DO SISTEMA ---
-    const units = {
-        internacional: {
-            label: "📏 Padrão Internacional",
-            items: {
-                m2: { name: "Metro Quadrado (m²)", factor: 1 },
-                are: { name: "Are", factor: 100 },
-                ha: { name: "Hectare", factor: 10000 },
-                km2: { name: "Quilômetro Quadrado (km²)", factor: 1000000 },
-                acre_int: { name: "Acre (Internacional)", factor: 4046.8564224 }
-            }
-        },
-        brasil: {
-            label: "🇧🇷 Brasil (Regionais)",
-            items: {
-                alq_paulista: { name: "Alqueire Paulista", factor: 24200 },
-                alq_mineiro: { name: "Alqueire Mineiro/Goiano", factor: 48400 },
-                alq_baiano: { name: "Alqueire Baiano", factor: 96800 },
-                tarefa_ne: { name: "Tarefa (Nordeste/Comum)", factor: 3025, note: "Variável! Confirme se é 3025m² na região." },
-                tarefa_ba: { name: "Tarefa (Bahia)", factor: 4356 },
-                braca_quadrada: { name: "Braça Quadrada", factor: 4.84 },
-                lote_padrao: { name: "Lote Urbano (Padrão 12x30)", factor: 360, note: "Estimado. Lotes variam por loteamento." },
-                data_mg: { name: "Data (MG)", factor: 605 } // Derivada histórica
-            }
-        },
-        eua_uk: {
-            label: "🇺🇸/🇬🇧 EUA & Império Britânico",
-            items: {
-                sq_ft: { name: "Square Foot (pé²)", factor: 0.092903 },
-                sq_yd: { name: "Square Yard (jarda²)", factor: 0.836127 },
-                acre_us: { name: "Acre (Survey US)", factor: 4046.873 },
-                rood: { name: "Rood", factor: 1011.714 },
-                perch: { name: "Perch / Rod", factor: 25.2929 },
-                sq_mile: { name: "Square Mile", factor: 2589988.11 }
-            }
-        },
-        europa: {
-            label: "🇪🇺 Europa (Histórico/Regional)",
-            items: {
-                arpent: { name: "Arpent (França)", factor: 3419 },
-                morgen: { name: "Morgen (Alemanha)", factor: 2500 },
-                fanega: { name: "Fanega (Espanha)", factor: 6400 },
-                tahulla: { name: "Tahúlla", factor: 1118 },
-                ferrado: { name: "Ferrado", factor: 546 },
-                geira: { name: "Geira (Portugal)", factor: 5000 },
-                alq_portugues: { name: "Alqueire Português", factor: 5800 }
-            }
-        },
-        africa: {
-            label: "🌍 África",
-            items: {
-                feddan: { name: "Feddan (Egito/Sudão)", factor: 4200 },
-                tarefa_africana: { name: "Tarefa (Colonial)", factor: 1000 }
-            }
-        },
-        asia: {
-            label: "🌏 Ásia",
-            items: {
-                bigha: { name: "Bigha (Índia - Média)", factor: 2500, note: "Muito variável por estado indiano." },
-                katha: { name: "Katha", factor: 338 },
-                guntha: { name: "Guntha", factor: 101.17 },
-                cent: { name: "Cent", factor: 40.4686 },
-                mu: { name: "Mu (China)", factor: 666.6667 },
-                qing: { name: "Qing (China)", factor: 66666.67 },
-                tsubo: { name: "Tsubo (Japão)", factor: 3.306 },
-                rai: { name: "Rai (Tailândia)", factor: 1600 }
-            }
-        },
-        oriente_medio: {
-            label: "🌴 Oriente Médio",
-            items: {
-                dunam: { name: "Dunam / Donum", factor: 1000 },
-                jerib: { name: "Jerib (Afeganistão)", factor: 2000 }
-            }
-        },
-        historico: {
-            label: "🏛️ Históricas (Antiguidade)",
-            items: {
-                iugerum: { name: "Iugerum (Roma)", factor: 2500 },
-                arura: { name: "Arura (Egito Antigo)", factor: 2700 },
-                plethron: { name: "Plethron (Grécia)", factor: 1000 },
-                hide: { name: "Hide (Inglaterra Medieval)", factor: 485000 },
-                virgate: { name: "Virgate", factor: 120000 }
-            }
-        }
-    };
+    <script>
+        const units = {
+            internacional: { label: "📏 Padrão Internacional", items: { m2: { name: "Metro Quadrado (m²)", factor: 1 }, ha: { name: "Hectare", factor: 10000 }, km2: { name: "Quilômetro Quadrado (km²)", factor: 1000000 }, acre_int: { name: "Acre (Internacional)", factor: 4046.85 } } },
+            brasil: { label: "🇧🇷 Brasil", items: { alq_paulista: { name: "Alqueire Paulista", factor: 24200 }, alq_mineiro: { name: "Alqueire Mineiro", factor: 48400 }, tarefa_ne: { name: "Tarefa (Nordeste)", factor: 3025, note: "Confirme se é 3025m² na sua região." } } }
+        };
 
-    // Funções de Tema e Cálculo
-    function toggleTheme() {
-        const body = document.body;
-        const icon = document.getElementById('themeIcon');
-        body.classList.toggle('dark-mode');
-        if (body.classList.contains('dark-mode')) {
-            localStorage.setItem('theme', 'dark');
-            icon.innerText = 'light_mode';
-        } else {
-            localStorage.setItem('theme', 'light');
-            icon.innerText = 'dark_mode';
-        }
-    }
-    function loadTheme() {
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-mode');
-            document.getElementById('themeIcon').innerText = 'light_mode';
-        }
-    }
-    function populateSelects() {
-        const selects = ['fromUnit', 'toUnit'];
-        selects.forEach(id => {
-            const select = document.getElementById(id);
-            select.innerHTML = '';
-            for (const [groupKey, groupData] of Object.entries(units)) {
-                const optgroup = document.createElement('optgroup');
-                optgroup.label = groupData.label;
-                for (const [unitKey, unitData] of Object.entries(groupData.items)) {
-                    const option = document.createElement('option');
-                    option.value = unitData.factor;
-                    option.text = unitData.name;
-                    option.dataset.name = unitData.name;
-                    option.dataset.note = unitData.note || "";
-                    optgroup.appendChild(option);
+        function populateSelects() {
+            const selects = ['fromUnit', 'toUnit'];
+            selects.forEach(id => {
+                const select = document.getElementById(id);
+                for (const [gk, g] of Object.entries(units)) {
+                    const group = document.createElement('optgroup');
+                    group.label = g.label;
+                    for (const [uk, u] of Object.entries(g.items)) {
+                        const opt = document.createElement('option');
+                        opt.value = u.factor; opt.text = u.name;
+                        opt.dataset.name = u.name; opt.dataset.note = u.note || "";
+                        group.appendChild(opt);
+                    }
+                    select.appendChild(group);
                 }
-                select.appendChild(optgroup);
-            }
-        });
-        document.getElementById('fromUnit').value = units.brasil.items.alq_paulista.factor;
-        document.getElementById('toUnit').value = units.internacional.items.ha.factor;
-    }
-    function swapUnits() {
-        const from = document.getElementById('fromUnit');
-        const to = document.getElementById('toUnit');
-        const temp = from.value; from.value = to.value; to.value = temp;
-        calculate();
-    }
-    function formatNumber(num) {
-        if (num === 0) return "0,00";
-        let decimals = 2;
-        if (num < 0.01) decimals = 6; else if (num < 1) decimals = 4;
-        return num.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: decimals });
-    }
-    function calculate() {
-        const amount = parseFloat(document.getElementById('amount').value) || 0;
-        const fromSelect = document.getElementById('fromUnit');
-        const toSelect = document.getElementById('toUnit');
-        const fromFactor = parseFloat(fromSelect.value);
-        const toFactor = parseFloat(toSelect.value);
-        const fromOption = fromSelect.options[fromSelect.selectedIndex];
-        const toOption = toSelect.options[toSelect.selectedIndex];
+            });
+            document.getElementById('fromUnit').value = 24200;
+            document.getElementById('toUnit').value = 10000;
+        }
 
-        // Alertas
-        document.getElementById('fromNote').style.display = fromOption.dataset.note ? 'flex' : 'none';
-        if(fromOption.dataset.note) document.querySelector('#fromNote .txt').innerText = fromOption.dataset.note;
-        
-        document.getElementById('toNote').style.display = toOption.dataset.note ? 'flex' : 'none';
-        if(toOption.dataset.note) document.querySelector('#toNote .txt').innerText = toOption.dataset.note;
+        function calculate() {
+            const amount = parseFloat(document.getElementById('amount').value) || 0;
+            const fromF = parseFloat(document.getElementById('fromUnit').value);
+            const toF = parseFloat(document.getElementById('toUnit').value);
+            const res = (amount * fromF) / toF;
+            document.getElementById('finalResult').innerText = res.toLocaleString('pt-BR', {maximumFractionDigits: 4});
+            document.getElementById('steps').innerHTML = `<strong>Cálculo:</strong> ${amount} × ${fromF}m² / ${toF}m² = ${res.toFixed(4)}`;
+            document.getElementById('steps').classList.add('visible');
+        }
 
-        // Cálculo
-        const valInM2 = amount * fromFactor;
-        const finalVal = valInM2 / toFactor;
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('themeIcon').innerText = isDark ? 'light_mode' : 'dark_mode';
+        }
 
-        document.getElementById('finalResult').innerText = formatNumber(finalVal);
-        document.getElementById('finalUnitName').innerText = toOption.dataset.name;
+        function swapUnits() {
+            const f = document.getElementById('fromUnit'), t = document.getElementById('toUnit');
+            const v = f.value; f.value = t.value; t.value = v; calculate();
+        }
 
-        const steps = document.getElementById('steps');
-        steps.classList.add('visible');
-        steps.innerHTML = `<strong>Detalhamento:</strong><br>${formatNumber(amount)} × ${formatNumber(fromFactor)} = ${formatNumber(valInM2)} m²<br>${formatNumber(valInM2)} m² ÷ ${formatNumber(toFactor)} = <strong>${formatNumber(finalVal)}</strong>`;
-    }
-
-    window.onload = () => { loadTheme(); populateSelects(); calculate(); };
-</script>
-
+        window.onload = () => { populateSelects(); calculate(); };
+    </script>
 </body>
-
 </html>
